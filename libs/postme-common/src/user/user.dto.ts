@@ -25,5 +25,5 @@ export class UserFollowDto {
 	@IsNotEmpty()
 	@IsNumber()
 	@Min(1)
-	followingId: number;
+	followedId: number;
 }
