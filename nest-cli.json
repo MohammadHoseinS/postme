@@ -1,28 +1,49 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/api-gateway/src",
+  "sourceRoot": "apps/postme/src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "assets": [
-      {
-        "include": "assets/i18n/**/*",
-        "watchAssets": true
-      }
-    ],
-    "webpack": true,
-    "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
+    "webpack": false,
+    "tsConfigPath": "apps/postme/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/api-gateway",
+  "root": "apps/postme",
   "projects": {
-    "api-gateway": {
+    "notifications": {
       "type": "application",
-      "root": "apps/api-gateway",
+      "root": "apps/notifications",
       "entryFile": "main",
-      "sourceRoot": "apps/api-gateway/src",
+      "sourceRoot": "apps/notifications/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
+        "tsConfigPath": "apps/notifications/tsconfig.app.json"
+      }
+    },
+    "postme": {
+      "type": "application",
+      "root": "apps/postme",
+      "entryFile": "main",
+      "sourceRoot": "apps/postme/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/postme/tsconfig.app.json"
+      }
+    },
+    "posts": {
+      "type": "application",
+      "root": "apps/posts",
+      "entryFile": "main",
+      "sourceRoot": "apps/posts/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/posts/tsconfig.app.json"
+      }
+    },
+    "users": {
+      "type": "application",
+      "root": "apps/users",
+      "entryFile": "main",
+      "sourceRoot": "apps/users/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/users/tsconfig.app.json"
       }
     }
   }
