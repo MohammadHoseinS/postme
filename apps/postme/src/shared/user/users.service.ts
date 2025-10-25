@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, HttpException, Injectable } from "@nestjs/common";
 import { BaseMicroserviceClient, IPaginationRequest, IPaginationResponse, User, UserFollowDto, UserMessagePattern, UserSubmitDto } from "postme-common";
 
 @Injectable()
@@ -11,30 +11,58 @@ export class UsersClientService extends BaseMicroserviceClient {
 	}
 
 	async get(id: number): Promise<User> {
-		return await this.send(UserMessagePattern.Get, id);
+		try {
+			return await this.send(UserMessagePattern.Get, id);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 
 	async getFull(id: number): Promise<User> {
-		return await this.send(UserMessagePattern.GetFull, id);
+		try {
+			return await this.send(UserMessagePattern.GetFull, id);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 	
 	async load(pagination: IPaginationRequest): Promise<IPaginationResponse<User>> {
-		return await this.send(UserMessagePattern.Load, pagination);
+		try {
+			return await this.send(UserMessagePattern.Load, pagination);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 
 	async create(dto: UserSubmitDto): Promise<User> {
-		return await this.send(UserMessagePattern.Create, dto);
+		try {
+			return await this.send(UserMessagePattern.Create, dto);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 
 	async update(dto: UserSubmitDto): Promise<User> {
-		return await this.send(UserMessagePattern.Update, dto);
+		try {
+			return await this.send(UserMessagePattern.Update, dto);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 
 	async follow(dto: UserFollowDto): Promise<boolean> {
-		return await this.send(UserMessagePattern.Follow, dto);
+		try {
+			return await this.send(UserMessagePattern.Follow, dto);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 
 	async unfollow(dto: UserFollowDto): Promise<boolean> {
-		return await this.send(UserMessagePattern.Unfollow, dto);
+		try {
+			return await this.send(UserMessagePattern.Unfollow, dto);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 }
