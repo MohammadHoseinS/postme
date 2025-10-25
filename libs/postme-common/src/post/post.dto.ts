@@ -39,6 +39,7 @@ export class PostFilterDto {
 	title: string;
 
 	@IsOptional()
+	@Transform(({ value }) => Number(value))
 	@IsNumber({}, { message: i18nValidationMessage('validation.isNumber') })
 	@Min(1, { message: i18nValidationMessage('validation.min', { min: 1 }) })
 	createdBy: number;
