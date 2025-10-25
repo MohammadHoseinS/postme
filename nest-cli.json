@@ -25,7 +25,13 @@
       "entryFile": "main",
       "sourceRoot": "apps/postme/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/postme/tsconfig.app.json"
+        "tsConfigPath": "apps/postme/tsconfig.app.json",
+        "assets": [
+          { 
+            "include": "assets/i18n/**/*",
+            "watchAssets": true 
+          }
+        ]
       }
     },
     "postme-common": {
