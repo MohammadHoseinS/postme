@@ -1,44 +1,45 @@
 import { Transform } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { i18nValidationMessage } from 'nestjs-i18n';
 
 export class PostCreateDto {
-	@IsNotEmpty()
-	@IsNumber()
-	@Min(1)
+	@IsNotEmpty({ message: i18nValidationMessage('validation.isNotEmpty') })
+	@IsNumber({}, { message: i18nValidationMessage('validation.isNotEmpty') })
+	@Min(1, { message: i18nValidationMessage('validation.min', { min: 1 }) })
 	createdBy: number;
 
-	@IsNotEmpty()
-	@IsString()
+	@IsNotEmpty({ message: i18nValidationMessage('validation.isNotEmpty') })
+	@IsString({ message: i18nValidationMessage('validation.isString') })
 	title: string;
 
 	@IsOptional()
-	@IsString()
+	@IsString({ message: i18nValidationMessage('validation.isString') })
 	content: string;
 }
 
 export class PostUpdateDto {
-	@IsNotEmpty()
-	@IsNumber()
-	@Min(1)
+	@IsNotEmpty({ message: i18nValidationMessage('validation.isNotEmpty') })
+	@IsNumber({}, { message: i18nValidationMessage('validation.isNumber') })
+	@Min(1, { message: i18nValidationMessage('validation.min', { min: 1 }) })
 	id: number;
 
-	@IsNotEmpty()
-	@IsString()
+	@IsNotEmpty({ message: i18nValidationMessage('validation.isNotEmpty') })
+	@IsString({ message: i18nValidationMessage('validation.isString') })
 	title: string;
 
 	@IsOptional()
-	@IsString()
+	@IsString({ message: i18nValidationMessage('validation.isString') })
 	content: string;
 }
 
 export class PostFilterDto {
 	@IsOptional()
 	@Transform(({ value }) => value?.trim())
-	@IsString()
+	@IsString({ message: i18nValidationMessage('validation.isString') })
 	title: string;
 
 	@IsOptional()
-	@IsNumber()
-	@Min(1)
+	@IsNumber({}, { message: i18nValidationMessage('validation.isNumber') })
+	@Min(1, { message: i18nValidationMessage('validation.min', { min: 1 }) })
 	createdBy: number;
 }
