@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { BaseMicroserviceClient, IPaginationRequest, IPaginationResponse, Post, PostCreateDto, PostFilterDto, PostMessagePattern, PostUpdateDto } from "postme-common";
 
 @Injectable()
@@ -11,14 +11,26 @@ export class PostsClientService extends BaseMicroserviceClient {
 	}
 
 	async load(pagination: IPaginationRequest<PostFilterDto>): Promise<IPaginationResponse<Post>> {
-		return await this.send(PostMessagePattern.Load, pagination);
+		try {
+			return await this.send(PostMessagePattern.Load, pagination);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 
 	async create(dto: PostCreateDto): Promise<Post> {
-		return await this.send(PostMessagePattern.Create, dto);
+		try {
+			return await this.send(PostMessagePattern.Create, dto);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 
 	async update(dto: PostUpdateDto): Promise<Post> {
-		return await this.send(PostMessagePattern.Update, dto);
+		try {
+			return await this.send(PostMessagePattern.Update, dto);
+		} catch (error) {
+			throw new HttpException(error, error.statusCode);
+		}
 	}
 }
