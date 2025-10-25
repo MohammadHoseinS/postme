@@ -91,7 +91,11 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^postme-common(|/.*)$": "<rootDir>/libs/postme-common/src/$1"
+    }
   }
 }

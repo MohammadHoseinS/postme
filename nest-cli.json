@@ -28,6 +28,15 @@
         "tsConfigPath": "apps/postme/tsconfig.app.json"
       }
     },
+    "postme-common": {
+      "type": "library",
+      "root": "libs/postme-common",
+      "entryFile": "index",
+      "sourceRoot": "libs/postme-common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/postme-common/tsconfig.lib.json"
+      }
+    },
     "posts": {
       "type": "application",
       "root": "apps/posts",

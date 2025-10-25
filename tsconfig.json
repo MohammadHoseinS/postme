@@ -23,6 +23,13 @@
     "noImplicitReturns": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "paths": {}
+    "paths": {
+      "postme-common": [
+        "libs/postme-common/src"
+      ],
+      "postme-common/*": [
+        "libs/postme-common/src/*"
+      ]
+    }
   }
 }
