@@ -7,6 +7,18 @@ import { IPaginationRequest, UserSubmitDto } from "postme-common";
 export class UserService {
 	constructor(private readonly dataSource: DataSource) { }
 
+	async getExists(email: string, id?: number): Promise<boolean> {
+		const query = this.dataSource
+			.createQueryBuilder(UserEntity, 'u')
+			.where('u.email = :email', { email });
+
+		if (id) {
+			query.andWhere('u.id != :id', { id });
+		}
+
+		return await query.getExists();
+	}
+
 	async getById(id: number): Promise<UserEntity> {
 		return await this.dataSource.manager.findOneBy(UserEntity, { id });
 	}

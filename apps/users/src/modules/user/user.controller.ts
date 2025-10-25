@@ -52,6 +52,11 @@ export class UserController {
 	async create(
 		@Payload() dto: UserSubmitDto
 	): Promise<User> {
+		const emailExists = await this.user$.getExists(dto.email);
+		if (emailExists) {
+			throw new BadRequestException('user.exceptions.emailExists');
+		}
+
 		const user = await this.user$.create(dto);
 		return UserMapper.toModelWithDetails(user);
 	}
@@ -63,6 +68,11 @@ export class UserController {
 		const user = await this.user$.getById(dto.id);
 		if (!user) {
 			throw new BadRequestException('user.exceptions.notFound');
+		}
+
+		const emailExists = await this.user$.getExists(dto.email, dto.id);
+		if (emailExists) {
+			throw new BadRequestException('user.exceptions.emailExists');
 		}
 
 		const result = await this.user$.update(user, dto);
