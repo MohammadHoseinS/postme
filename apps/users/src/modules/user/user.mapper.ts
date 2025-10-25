@@ -12,7 +12,7 @@ export class UserMapper {
 
 	static async toModelWithDetails(entity: UserEntity): Promise<User> {
 		const [following, followers] = await Promise.all([
-			entity.getFollowing(),
+			entity.getFollowings(),
 			entity.getFollowers()
 		]);
 
