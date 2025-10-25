@@ -1,0 +1,6 @@
+{
+	"exceptions": {
+		"notFound": "User not found",
+		"emailExists": "This email is used for another account"
+	}
+}
