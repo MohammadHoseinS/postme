@@ -3,10 +3,10 @@ import { PostsAppService } from './posts.service';
 
 @Controller()
 export class PostsAppController {
-  constructor(private readonly postsService: PostsAppService) {}
+	constructor(private readonly postsService: PostsAppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.postsService.getHello();
-  }
+	@Get()
+	getHello(): string {
+		return this.postsService.getHello();
+	}
 }

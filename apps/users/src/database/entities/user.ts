@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToMany, OneToMany } from "typeorm";
-import { BaseEntity } from "../base.entity";
-import { UserFollowingEntity } from "./user-following";
+import { Column, Entity, ManyToMany, OneToMany } from 'typeorm';
+import { BaseEntity } from '../base.entity';
+import { UserFollowingEntity } from './user-following';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {

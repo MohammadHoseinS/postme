@@ -1,6 +1,6 @@
-import { Column, Entity, Index, ManyToOne } from "typeorm";
-import { BaseEntity } from "../base.entity";
-import { UserEntity } from "./user";
+import { Column, Entity, Index, ManyToOne } from 'typeorm';
+import { BaseEntity } from '../base.entity';
+import { UserEntity } from './user';
 
 @Index(['followerId', 'followingId'], { unique: true })
 @Entity('userFollowings')

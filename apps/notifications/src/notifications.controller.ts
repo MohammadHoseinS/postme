@@ -3,10 +3,10 @@ import { NotificationsAppService } from './notifications.service';
 
 @Controller()
 export class NotificationsAppController {
-  constructor(private readonly notificationsService: NotificationsAppService) {}
+	constructor(private readonly notificationsService: NotificationsAppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.notificationsService.getHello();
-  }
+	@Get()
+	getHello(): string {
+		return this.notificationsService.getHello();
+	}
 }

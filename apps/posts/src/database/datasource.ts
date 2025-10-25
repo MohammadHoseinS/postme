@@ -15,7 +15,7 @@ export const dataSourceOptions: DataSourceOptions = {
 	migrations: [resolve(__dirname, 'migrations/**/*.ts')],
 	entities: [resolve(__dirname, 'entities/**/*.js')],
 	subscribers: [resolve(__dirname, 'subscribers/**/*.subscriber.js')]
-}
+};
 const dataSource = new DataSource(dataSourceOptions);
 const initializeWithRetry = async (retries = 3) => {
 	for (let i = 0; i < retries; i++) {
