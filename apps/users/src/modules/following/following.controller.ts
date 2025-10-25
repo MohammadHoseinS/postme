@@ -1,6 +1,6 @@
-import { BadRequestException, Controller } from "@nestjs/common";
+import { Controller } from "@nestjs/common";
 import { UserFollowingService } from "./following.service";
-import { MessagePattern, Payload } from "@nestjs/microservices";
+import { MessagePattern, Payload, RpcException } from "@nestjs/microservices";
 import { UserFollowDto, UserMessagePattern } from "postme-common";
 
 @Controller()
@@ -13,12 +13,20 @@ export class UserFollowingController {
 	): Promise<boolean> {
 		const follower = await this.following$.getById(dto.followerId);
 		if (!follower) {
-			throw new BadRequestException('user.exceptions.notFound');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.notFound',
+			});
 		}
 
 		const followed = await this.following$.getById(dto.followedId);
 		if (!followed) {
-			throw new BadRequestException('user.exceptions.notFound');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.notFound',
+			});
 		}
 
 		return await this.following$.follow(follower, followed);
@@ -30,12 +38,20 @@ export class UserFollowingController {
 	): Promise<boolean> {
 		const follower = await this.following$.getById(dto.followerId);
 		if (!follower) {
-			throw new BadRequestException('user.exceptions.notFound');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.notFound',
+			});
 		}
 
 		const followed = await this.following$.getById(dto.followedId);
 		if (!followed) {
-			throw new BadRequestException('user.exceptions.notFound');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.notFound',
+			});
 		}
 
 		return await this.following$.unfollow(follower, followed);

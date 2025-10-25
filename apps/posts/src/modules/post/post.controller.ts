@@ -1,6 +1,6 @@
-import { BadRequestException, Controller } from "@nestjs/common";
+import { Controller } from "@nestjs/common";
 import { PostService } from "./post.service";
-import { MessagePattern, Payload } from "@nestjs/microservices";
+import { MessagePattern, Payload, RpcException } from "@nestjs/microservices";
 import { IPaginationRequest, IPaginationResponse, Paginator, Post, PostCreateDto, PostFilterDto, PostUpdateDto } from "postme-common";
 import { PostMapper } from "./post.mapper";
 import { UsersClientService } from "./users.service";
@@ -41,7 +41,11 @@ export class PostController {
 	): Promise<Post> {
 		const createdBy = await this.users$.getById(dto.createdBy);
 		if (!createdBy) {
-			throw new BadRequestException('user.exceptions.notFound');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.notFound',
+			});
 		}
 
 		const result = await this.post$.create(dto);
@@ -54,7 +58,11 @@ export class PostController {
 	): Promise<Post> {
 		const post = await this.post$.getById(dto.id);
 		if (!post) {
-			throw new BadRequestException('post.exceptions.notFound');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'post.exceptions.notFound',
+			});
 		}
 
 		const updated = await this.post$.update(post, dto);

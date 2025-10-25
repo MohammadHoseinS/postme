@@ -1,6 +1,6 @@
-import { BadRequestException, Controller } from "@nestjs/common";
+import { Controller } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { MessagePattern, Payload } from "@nestjs/microservices";
+import { MessagePattern, Payload, RpcException } from "@nestjs/microservices";
 import { IPaginationRequest, IPaginationResponse, Paginator, User, UserMessagePattern, UserSubmitDto } from "postme-common";
 import { UserMapper } from "./user.mapper";
 
@@ -14,7 +14,11 @@ export class UserController {
 	): Promise<User> {
 		const user = await this.user$.getById(id);
 		if (!user) {
-			throw new BadRequestException('user.exceptions.notFound');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.notFound',
+			});
 		}
 
 		return await UserMapper.toModel(user);
@@ -26,7 +30,11 @@ export class UserController {
 	): Promise<User> {
 		const user = await this.user$.getById(id);
 		if (!user) {
-			throw new BadRequestException('user.exceptions.notFound');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.notFound',
+			});
 		}
 
 		return await UserMapper.toModelWithDetails(user);
@@ -54,7 +62,11 @@ export class UserController {
 	): Promise<User> {
 		const emailExists = await this.user$.getExists(dto.email);
 		if (emailExists) {
-			throw new BadRequestException('user.exceptions.emailExists');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.emailExists',
+			});
 		}
 
 		const user = await this.user$.create(dto);
@@ -67,12 +79,20 @@ export class UserController {
 	): Promise<User> {
 		const user = await this.user$.getById(dto.id);
 		if (!user) {
-			throw new BadRequestException('user.exceptions.notFound');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.notFound',
+			});
 		}
 
 		const emailExists = await this.user$.getExists(dto.email, dto.id);
 		if (emailExists) {
-			throw new BadRequestException('user.exceptions.emailExists');
+			throw new RpcException({
+				statusCode: 400,
+				error: 'Bad Request',
+				message: 'user.exceptions.emailExists',
+			});
 		}
 
 		const result = await this.user$.update(user, dto);
