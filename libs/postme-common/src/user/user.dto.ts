@@ -1,6 +1,11 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
 
-export class UserInformationDto {
+export class UserSubmitDto {
+	@IsOptional()
+	@IsNumber()
+	@Min(1)
+	id: number;
+
 	@IsNotEmpty()
 	@IsString()
 	name: string;
