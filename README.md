@@ -1,98 +1,152 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+📨 Postme — A NestJS Microservices Monorepo
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Postme is a distributed post management platform built with NestJS
+, designed to demonstrate a clean microservices architecture using a monorepo setup.
+It showcases modular design, inter-service communication, and clean API gateway orchestration.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+🏗️ Architecture Overview
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
+The system follows a microservices architecture using NestJS and TCP-based inter-service communication.
+```
+apps/
+├── postme/           # API Gateway - main entry point
+├── users/            # Users service (authentication, profile, followers)
+├── posts/            # Posts service (CRUD operations, likes)
+├── notifications/    # Notifications service (async events)
+libs/
+└── postme-common/    # Shared library (DTOs, entities, enums, utils)
 ```
 
-## Compile and run the project
+Each service runs independently but communicates over NestJS microservice messaging (TCP transport).
 
-```bash
-# development
-$ npm run start
+⚙️ Features
 
-# watch mode
-$ npm run start:dev
+* 🧩 Monorepo setup using @nestjs/cli
 
-# production mode
-$ npm run start:prod
+* 🔌 Microservices communication via TCP
+
+* 🌐 API Gateway handling HTTP requests and orchestrating services
+
+* 💬 Localization (i18n) integrated in the API Gateway
+
+* 🗃️ TypeORM integration for database entities and relations
+
+* 🔄 DTOs & Shared Models in a reusable library
+
+* 🧠 Clean architecture and modular service boundaries
+
+🚀 Getting Started
+1. Clone the repository
+``` Terminal command
+git clone https://github.com/MohammadHoseinS/postme.git
+cd postme
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+2. Install dependencies
+``` Terminal command
+npm install
 ```
 
-## Deployment
+3. Setup environment variables
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Create a .env file in the project root. Example:
+``` env file
+# api gateway - postme app
+POSTME_HOST="localhost"
+POSTME_PORT=3000
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+# users service
+USERS_SERVICE_HOST="localhost"
+USERS_SERVICE_PORT=3001
+USERS_DATABASE_HOSTNAME="localhost"
+USERS_DATABASE_PORT=3306
+USERS_DATABASE_USERNAME="username"
+USERS_DATABASE_PASSWORD="password"
+USERS_DATABASE_NAME=postme_users
 
-```bash
-$ npm install -g mau
-$ mau deploy
+# posts service
+POSTS_SERVICE_HOST="localhost"
+POSTS_SERVICE_PORT=3002
+POSTS_DATABASE_HOSTNAME="localhost"
+POSTS_DATABASE_PORT=3306
+POSTS_DATABASE_USERNAME="username"
+POSTS_DATABASE_PASSWORD="password"
+POSTS_DATABASE_NAME=postme_posts
+
+# notifications service
+NOTIFICATIONS_SERVICE_HOST="localhost"
+NOTIFICATIONS_SERVICE_PORT=3003
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+4. Run all services (not in watch mode)
+``` Terminal command
+npm run start:all
+```
 
-## Resources
+Or run individual services:
 
-Check out a few resources that may come in handy when working with NestJS:
+``` Terminal command
+npm run start:dev:users
+npm run start:dev:postme
+npm run start:dev:posts
+npm run start:dev:notifications
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+🧱 Technology Stack
 
-## Support
+* Framework: NestJS
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+* Database: MySQL with TypeORM
 
-## Stay in touch
+* Language: TypeScript
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+* Communication: TCP (NestJS Microservices)
 
-## License
+* Localization: nestjs-i18n
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+* Monorepo Management: Nest CLI
+
+* Runtime: Node.js 22+
+
+🧩 Shared Library (postme-common)
+
+This library includes:
+
+* DTOs
+
+* Entities (for shared schemas)
+
+* Enums
+
+* Utility classes (e.g., BaseMicroserviceClient)
+
+This allows all services — and even frontend apps — to share consistent models and data types.
+
+📬 Example Communication
+
+API Gateway → Users Service
+``` Nest.Js TypeScript
+const user = await this.usersClient.getById(1);
+```
+
+Users Service
+``` Nest.Js TypeScript
+@MessagePattern('users.get')
+getUserById(id: number): Promise<User> {
+  const user = this.userRepository.findOneBy({ id });
+  if (!user) throw new RpcException({ statusCode: 404, message: 'user.exceptions.notFound' });
+  return user;
+}
+```
+
+🧠 TODO / Future Improvements
+
+ * Add authentication (JWT)
+
+ * Add google / apple authentication (OAuth 2.0)
+
+ * Add message queue (e.g., RabbitMQ)
+
+ * Add Docker support for easier setup
+
+ * Add unit/integration tests for each service
