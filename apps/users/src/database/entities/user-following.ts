@@ -1,8 +1,9 @@
 import { Column, Entity, Index, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../base.entity';
 import { UserEntity } from './user';
+import dataSource from '../datasource';
 
-@Index(['followerId', 'followingId'], { unique: true })
+@Index(['followerId', 'followedId'], { unique: true })
 @Entity('userFollowings')
 export class UserFollowingEntity extends BaseEntity {
 	@Column({
@@ -13,14 +14,14 @@ export class UserFollowingEntity extends BaseEntity {
 	@Column({
 		nullable: false
 	})
-	followingId: number;
+	followedId: number;
 
 	/************************* Relations *************************/
 
 	@ManyToOne(() => UserEntity, user => user.followers, { onDelete: 'CASCADE' })
 	follower: Promise<UserEntity>;
 
-	@ManyToOne(() => UserEntity, user => user.following, { onDelete: 'CASCADE' })
+	@ManyToOne(() => UserEntity, user => user.followings, { onDelete: 'CASCADE' })
 	followed: Promise<UserEntity>;
 
 	/************************* Methods *************************/

@@ -18,9 +18,11 @@ export class UserEntity extends BaseEntity {
 
 	/************************* Relations *************************/
 
+	// Follower entity has a list of followings
 	@OneToMany(() => UserFollowingEntity, userFollowing => userFollowing.follower)
-	following: Promise<UserFollowingEntity[]>;
+	followings: Promise<UserFollowingEntity[]>;
 
+	// Following entity has a list of followers
 	@OneToMany(() => UserFollowingEntity, userFollowing => userFollowing.followed)
 	followers: Promise<UserFollowingEntity[]>;
 
@@ -36,19 +38,19 @@ export class UserEntity extends BaseEntity {
    */
 	async getFollowers(): Promise<UserEntity[]> {
 		return await dataSource
-			.createQueryBuilder(UserEntity, 'u')
-			.innerJoin('u.following', 'uf')
-			.where('uf.followingId = :userId', { userId: this.id })
+			.createQueryBuilder(UserEntity, 'follower')
+			.innerJoin('follower.followings', 'uf')
+			.where('uf.followedId = :userId', { userId: this.id })
 			.getMany();
 	}
 
 	/**
 	 * Get all users whom the given user is following
 	 */
-	async getFollowing(): Promise<UserEntity[]> {
+	async getFollowings(): Promise<UserEntity[]> {
 		return await dataSource
-			.createQueryBuilder(UserEntity, 'u')
-			.innerJoin('u.following', 'uf')
+			.createQueryBuilder(UserEntity, 'following')
+			.innerJoin('following.followers', 'uf')
 			.where('uf.followerId = :userId', { userId: this.id })
 			.getMany();
 	}
