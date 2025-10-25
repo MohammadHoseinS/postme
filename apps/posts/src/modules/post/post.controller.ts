@@ -1,7 +1,7 @@
 import { Controller } from "@nestjs/common";
 import { PostService } from "./post.service";
 import { MessagePattern, Payload, RpcException } from "@nestjs/microservices";
-import { IPaginationRequest, IPaginationResponse, Paginator, Post, PostCreateDto, PostFilterDto, PostUpdateDto } from "postme-common";
+import { IPaginationRequest, IPaginationResponse, Paginator, Post, PostCreateDto, PostFilterDto, PostMessagePattern, PostUpdateDto } from "postme-common";
 import { PostMapper } from "./post.mapper";
 import { UsersClientService } from "./users.service";
 
@@ -12,7 +12,7 @@ export class PostController {
 		private readonly users$: UsersClientService
 	) {}
 
-	@MessagePattern('posts.load')
+	@MessagePattern(PostMessagePattern.Load)
 	async load(
 		@Payload() pagination: IPaginationRequest<PostFilterDto>
 	): Promise<IPaginationResponse<Post>> {
@@ -35,7 +35,7 @@ export class PostController {
 		return Paginator.of<Post>(pagination, total, models);
 	}
 
-	@MessagePattern('posts.create')
+	@MessagePattern(PostMessagePattern.Create)
 	async create(
 		@Payload() dto: PostCreateDto
 	): Promise<Post> {
@@ -52,7 +52,7 @@ export class PostController {
 		return PostMapper.toModel(result);
 	}
 
-	@MessagePattern('posts.update')
+	@MessagePattern(PostMessagePattern.Update)
 	async update(
 		@Payload() dto: PostUpdateDto
 	): Promise<Post> {

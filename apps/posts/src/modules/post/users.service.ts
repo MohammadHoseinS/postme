@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { BaseMicroserviceClient, User } from "postme-common";
+import { BaseMicroserviceClient, User, UserMessagePattern } from "postme-common";
 
 @Injectable()
 export class UsersClientService extends BaseMicroserviceClient {
@@ -11,6 +11,6 @@ export class UsersClientService extends BaseMicroserviceClient {
 	}
 
 	async getById(id: number): Promise<User> {
-		return await this.send('users.get', id);
+		return await this.send(UserMessagePattern.Get, id);
 	}
 }
