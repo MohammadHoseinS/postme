@@ -11,6 +11,14 @@ export class User {
 	@Expose()
 	email: string;
 
+	@Expose()
+	@Type(() => User)
+	followers: User[];
+	
+	@Expose()
+	@Type(() => User)
+	following: User[];
+
 	/************************* methods *************************/
 
 	constructor(props?: Partial<User>) {
