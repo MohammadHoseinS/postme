@@ -12,6 +12,17 @@ export class Post {
 	content: string;
 
 	@Expose()
+	@Type(() => Number)
+	createdById: number;
+
+	@Expose()
+	@Type(() => Date)
+	createdOn: Date;
+
+	@Expose()
+	createdByName: string;
+
+	@Expose()
 	@Type(() => Boolean)
 	published: boolean;
 
