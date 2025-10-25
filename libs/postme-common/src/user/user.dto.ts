@@ -18,11 +18,12 @@ export class UserSubmitDto {
 
 export class UserFollowDto {
 	@IsNotEmpty()
-	@IsString()
-	followerId: string;
+	@IsNumber()
+	@Min(1)
+	followerId: number;
 
 	@IsNotEmpty()
-	@IsString()
-	@IsEmail()
-	followingId: string;
+	@IsNumber()
+	@Min(1)
+	followingId: number;
 }
