@@ -7,10 +7,12 @@ import { resolve } from 'path';
 config({ path: resolve(process.cwd(), '.env') });
 
 async function bootstrap() {
+  const host = process.env.POSTS_SERVICE_HOST;
 	const port = Number(process.env.POSTS_SERVICE_PORT);
 	const app = await NestFactory.createMicroservice<MicroserviceOptions>(PostsAppModule, {
 		transport: Transport.TCP,
 		options: {
+      host: host,
 			port: port
 		}
 	});
