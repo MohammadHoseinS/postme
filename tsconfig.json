@@ -26,13 +26,6 @@
     "typeRoots": [
       "./src/index.d.ts",
       "node_modules/@types"
-    ],
-    "paths": {
-      "@common/*": ["./src/common/*"],
-      "@database/*": ["src/database/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@modules/*": ["src/modules/*"],
-      "@shared/*": ["src/shared/*"]
-    }
+    ]
   }
 }
