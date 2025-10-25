@@ -15,7 +15,7 @@ export class UserFollowingService {
 		await this.dataSource.manager.save(new UserFollowingEntity({
 			followerId: follower.id,
 			follower: Promise.resolve(follower),
-			followingId: followed.id,
+			followedId: followed.id,
 			followed: Promise.resolve(followed),
 		}))
 		return true;
@@ -24,7 +24,7 @@ export class UserFollowingService {
 	async unfollow(follower: UserEntity, followed: UserEntity): Promise<boolean> {
 		const following = await this.dataSource.manager.findOneBy(UserFollowingEntity, {
 			followerId: follower.id,
-			followingId: followed.id
+			followedId: followed.id
 		});
 
 		if (following) {
