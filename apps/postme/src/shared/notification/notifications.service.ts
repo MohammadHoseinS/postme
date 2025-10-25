@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { BaseMicroserviceClient, NotificationMessagePattern } from "postme-common";
 
 @Injectable()
@@ -10,7 +10,11 @@ export class NotificationsClientService extends BaseMicroserviceClient {
 		);
 	}
 
-	async create(userIds: number[]): Promise<boolean> {
-		return await this.send(NotificationMessagePattern.PostCreated, userIds);
+	async notifyPostCreated(userIds: number[]): Promise<boolean> {
+		try {
+			return await this.send(NotificationMessagePattern.PostCreated, userIds);
+		} catch (error) {
+			throw new HttpException(error, error.status);
+		}
 	}
 }
