@@ -7,6 +7,9 @@ export abstract class BaseMicroserviceClient implements OnModuleInit, OnModuleDe
 
 	constructor(host: string, port: number) {
 		this.client = ClientProxyFactory.create({
+			// in a real application, we might have microservices each using different transport mechanisms
+			// like RabbitMQ, Kafka, etc. Here, for simplicity, we use TCP transport by default for all microservices
+			// in other cases, we can extend this class to accept transport type and options as parameters
 			transport: Transport.TCP,
 			options: { host, port },
 		});
