@@ -3,13 +3,13 @@ import { PostService } from "./post.service";
 import { MessagePattern, Payload } from "@nestjs/microservices";
 import { IPaginationRequest, IPaginationResponse, Paginator, Post, PostCreateDto, PostFilterDto, PostUpdateDto } from "postme-common";
 import { PostMapper } from "./post.mapper";
-import { UsersClient } from "./users.client";
+import { UsersClientService } from "./users.service";
 
 @Controller()
 export class PostController {
 	constructor(
 		private readonly post$: PostService,
-		private readonly users$: UsersClient
+		private readonly users$: UsersClientService
 	) {}
 
 	@MessagePattern('posts.load')

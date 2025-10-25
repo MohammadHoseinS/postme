@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { BaseMicroserviceClient, User } from "postme-common";
 
 @Injectable()
-export class UsersClient extends BaseMicroserviceClient {
+export class UsersClientService extends BaseMicroserviceClient {
 	constructor() {
 		super(
 			process.env.USERS_SERVICE_HOST, // host
