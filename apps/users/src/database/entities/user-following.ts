@@ -18,10 +18,10 @@ export class UserFollowingEntity extends BaseEntity {
 	/************************* Relations *************************/
 
 	@ManyToOne(() => UserEntity, user => user.followers, { onDelete: 'CASCADE' })
-	follower: UserEntity;
+	follower: Promise<UserEntity>;
 
 	@ManyToOne(() => UserEntity, user => user.following, { onDelete: 'CASCADE' })
-	following: UserEntity;
+	followed: Promise<UserEntity>;
 
 	/************************* Methods *************************/
 

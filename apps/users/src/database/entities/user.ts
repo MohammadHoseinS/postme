@@ -19,10 +19,10 @@ export class UserEntity extends BaseEntity {
 	/************************* Relations *************************/
 
 	@OneToMany(() => UserFollowingEntity, userFollowing => userFollowing.follower)
-	following: UserFollowingEntity[];
+	following: Promise<UserFollowingEntity[]>;
 
-	@OneToMany(() => UserFollowingEntity, userFollowing => userFollowing.following)
-	followers: UserFollowingEntity[];
+	@OneToMany(() => UserFollowingEntity, userFollowing => userFollowing.followed)
+	followers: Promise<UserFollowingEntity[]>;
 
 	/************************* Methods *************************/
 
